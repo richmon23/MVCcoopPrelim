@@ -1,0 +1,47 @@
+@model List<RetizaCoopPrelim.Entities.UserType>
+
+<link href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" rel="stylesheet">
+
+<style>
+    .class1 {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+</style>
+
+<h1 class="mt-2 class1">
+    User Type
+</h1>
+<a class="btn btn-dark mt-5" href="UserType/Create">Add New User</a>
+
+<div class="card mt-2" style="width: 80rem;">
+    <div class="container">
+        <table id="example" class="table table-dark mt-2">
+            <thead class="table table-info">
+                <tr>
+                    <td class="text-center"><b>Id</b></td>
+                    <td class="text-center"><b>Name</b></td>
+                    <td class="text-center"><b>Action</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var UserType in Model)
+                {
+                    <tr>
+                        <td class="text-center">@UserType.Id</td>
+                        <td class="text-center">@UserType.Name</td>
+                        <td class="text-center">
+                            <a class="btn btn-warning" href="UserType/Update/@UserType.Id">Update</a>
+                            <a class="btn btn-danger" href="UserType/delete/@UserType.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script src="~/js/main.js"></script>
+}

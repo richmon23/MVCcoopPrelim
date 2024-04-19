@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold "Server=MORT-DESIREE\SQLEXPRESS;Database=PRELIMMVCNEW;TrustServerCertificate=true;Trusted_Connection=True" Microsoft.EntityFrameworkCore.SqlServer -o Entities -f 

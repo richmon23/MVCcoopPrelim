@@ -1,0 +1,100 @@
+@model List<RetizaCoopPrelim.Entities.ClientInfo>
+<link href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/7b92f6b770.js" crossorigin="anonymous"></script>
+
+<h3>Client List</h3>
+
+<br>
+<!-- btn open modal add client -->
+<a class="btn btn-dark" href="Client/Create">Add New Client</a>
+
+<div class="card mt-3" style="width: 80rem;">
+  <div class="container mt-3">
+    <table id="example" class="table table-dark" style="width: 100%;">
+      <thead class="table table-info">
+        <tr class="text-center">
+          <td>Id</td>
+          <td>UserType</td>
+          <td>FirstName</td>
+          <td>MiddleName</td>
+          <td>LastName</td>
+          <td>Address</td>
+          <td>ZipCode</td>
+          <td>Birthday</td>
+          <td>Age</td>
+          <td>Action</td>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var ClientInfo in Model)
+        {
+          <tr class="text-center">
+            <td>@ClientInfo.Id</td>
+            <td>@ClientInfo.UserType</td>
+            <td>@ClientInfo.FirstName</td>
+            <td>@ClientInfo.MiddleName</td>
+            <td>@ClientInfo.LastName</td>
+            <td>@ClientInfo.Address</td>
+            <td>@ClientInfo.ZipCode</td>
+            <td>@ClientInfo.Birthdate</td>
+            <td>@ClientInfo.Age</td>
+            <td>
+              <i type="button" style="color: rgb(255, 255, 255);" class="fa fa-address-book" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                onclick="showClientDetails('@ClientInfo.NameofFather', '@ClientInfo.NameofMother', '@ClientInfo.Civilstatus', '@ClientInfo.Religion', '@ClientInfo.Occupation')"></i>
+              |
+              <a type="button" class="fa-solid fa-pen-to-square" style="color: rgb(255, 255, 255);" href="Client/Update/@ClientInfo.Id"></a> |
+              <a type="button" class="fa-solid fa-trash" style="color: rgb(255, 255, 255);" href="Client/Delete/@ClientInfo.Id"></a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Client Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group" id="clientDetails">
+          @foreach (var Clientinfo in Model)
+          {
+            <li class="list-group-item">@Clientinfo.NameofFather</li>
+            <li class="list-group-item">@Clientinfo.NameofMother</li>
+            <li class="list-group-item">@Clientinfo.Civilstatus</li>
+            <li class="list-group-item">@Clientinfo.Religion</li>
+            <li class="list-group-item">@Clientinfo.Occupation</li>
+          }
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+@section scripts {
+
+  <script>
+    function showClientDetails(father, mother, civilStatus, religion, occupation) {
+      var modalBody = document.getElementById("clientDetails");
+      modalBody.innerHTML = '';
+      modalBody.innerHTML += '<li class="list-group-item">Name of Father: ' + father + '</li>';
+      modalBody.innerHTML += '<li class="list-group-item">Name of Mother: ' + mother + '</li>';
+      modalBody.innerHTML += '<li class="list-group-item">Civil Status: ' + civilStatus + '</li>';
+      modalBody.innerHTML += '<li class="list-group-item">Religion: ' + religion + '</li>';
+      modalBody.innerHTML += '<li class="list-group-item">Occupation: ' + occupation + '</li>';
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+  <script src="~/js/main.js"></script>
+}

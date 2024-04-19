@@ -1,0 +1,195 @@
+@model RetizaCoopPrelim.Entities.ClientInfo
+@using RetizaCoopPrelim.Entities
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    form {
+        width: 50%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+    .field-validation-error{
+        color:red;
+    }
+
+    label {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        font-weight: 400;
+    }
+
+    input[type="submit"] {
+        width: auto;
+        padding: 10px 20px;
+        color: #040404;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+        color: white;
+    }
+
+    form {
+        background: rgba(245, 243, 243, 0.32);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(3.1px);
+        -webkit-backdrop-filter: blur(3.1px);
+        border: 1px solid rgba(255, 255, 255, 1);
+    }
+
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-cta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<body>
+    
+  
+      <!-- Your script goes here -->
+    <script>
+        function calculateAge() {
+            var dob = document.getElementById('dob').value;
+            var dobDate = new Date(dob);
+            var today = new Date();
+            var age = today.getFullYear() - dobDate.getFullYear();
+            var month = today.getMonth() - dobDate.getMonth();
+            if (month < 0 || (month === 0 && today.getDate() < dobDate.getDate())) {
+                age--;
+            }
+            document.getElementById('age').value = age;
+        }
+    </script>
+
+
+</body>
+
+<h1
+    style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+    Update Client Info
+</h1>
+
+<form asp-action="update" method="post">
+    <input type="hidden" asp-for="Id">
+    <div class="row">
+        <div class="col-6 mb-3">
+            <label class="form-label" asp-for="UserType"></label>
+            <select asp-for="UserType" class="form-control">
+                @foreach (var UserType in (List<UserType>)ViewData["UserTypes"])
+                {
+                    <option value="@UserType.Id">@UserType.Name</option>
+                }
+            </select>
+           
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" asp-for="FirstName"></label>
+            <input asp-for="FirstName" class="form-control">
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "field-validation-error" })
+           
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" asp-for="MiddleName"></label>
+            <input asp-for="MiddleName" class="form-control">
+             @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "field-validation-error" })
+           
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" asp-for="LastName"></label>
+            <input asp-for="LastName" class="form-control">
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "field-validation-error" })
+          
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" asp-for="Address"></label>
+            <input asp-for="Address" class="form-control">
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "field-validation-error" })
+            
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" asp-for="ZipCode"></label>
+            <input asp-for="ZipCode" class="form-control">
+            @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "field-validation-error" })
+      
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label">Birthdate</label>
+            @* <input class="form-control" type="Date" name="Birthdate"> *@
+             <input asp-for="Birthdate" id= "dob"onchange="calculateAge()"  class="form-control">
+             @Html.ValidationMessageFor(model => model.Birthdate)
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label">Age</label>
+             <input asp-for="Age" class="form-control"Id = "age"readonly>
+            @* <input class="form-control" type="text" name="Age" autocomplete="off">
+            @Html.ValidationMessageFor(model => model.Age) *@
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" asp-for="NameofFather"></label>
+            <input asp-for="NameofFather" class="form-control">
+             @Html.ValidationMessageFor(model => model.NameofFather, "", new { @class = "field-validation-error" })
+        
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" asp-for="NameofMother"></label>
+            <input asp-for="NameofMother" class="form-control">
+             @Html.ValidationMessageFor(model => model.NameofMother, "", new { @class = "field-validation-error" })
+         
+        </div>
+
+        <div class="col-6 mb-3">
+              <label class="form-label">CivilStatus</label>
+            <select class="form-select " id="myDropdown" name="Civilstatus">  
+                <option selected>Select.....</option>  
+                <option value="Single">Single</option>  
+                <option value="Married">Married</option>  
+            </select>  
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" asp-for="Religion"></label>
+            <input asp-for="Religion" class="form-control">
+             @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "field-validation-error" })
+ 
+        </div>
+
+        <div class="col-12 mb-3">
+            <label class="form-label" asp-for="Occupation"></label>
+            <input asp-for="Occupation" class="form-control">
+             @Html.ValidationMessageFor(model => model.Occupation, "", new { @class = "field-validation-error" })
+          
+        </div>
+    </div>
+
+    <div class="btn-cta">
+        <input type="submit" class="btn btn-info" value="Submit">
+    </div>
+</form>
